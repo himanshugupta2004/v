@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Proposal</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fce4ec;
+            background-image: linear-gradient(45deg, #fce4ec 25%, #f8bbd0 25%, #f8bbd0 50%, #fce4ec 50%, #fce4ec 75%, #f8bbd0 75%, #f8bbd0 100%);
+            background-size: 40px 40px;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+            border: 2px solid #f06292;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .yes-button {
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            background-color: #ec407a;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+        }
+
+        .yes-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background-color: #e91e63;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .success-message {
+            display: none;
+            color: #d81b60;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will You Be My Valentine?</h1>
+        <button class="yes-button">Yes</button>
+        <div class="success-message">❤️ Thank you for being my Valentine! ❤️</div>
+    </div>
+
+    <script>
+        const yesButton = document.querySelector('.yes-button');
+        const successMessage = document.querySelector('.success-message');
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+
+            // Remove heart after animation
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function showHearts() {
+            // Initial burst of hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+
+            // Continue creating hearts
+            const heartInterval = setInterval(createHeart, 300);
+
+            // Show success message
+            successMessage.style.display = 'block';
+            
+            // Optional: stop creating hearts after some time
+            setTimeout(() => {
+                clearInterval(heartInterval);
+            }, 10000);
+        }
+
+        yesButton.addEventListener('click', () => {
+            yesButton.style.display = 'none';
+            showHearts();
+        });
+    </script>
+</body>
+</html>
